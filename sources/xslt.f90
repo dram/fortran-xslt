@@ -18,6 +18,20 @@ module xslt
        type(c_ptr) :: res
      end function xslt_apply_stylesheet
 
+     !! security
+     !! ********
+     function xslt_new_security_prefs() result(res) &
+          bind(c, name="xsltNewSecurityPrefs")
+       use iso_c_binding, only: c_ptr
+       type(c_ptr) :: res
+     end function xslt_new_security_prefs
+
+     subroutine xslt_set_default_security_prefs(sec) &
+          bind(c, name="xsltSetDefaultSecurityPrefs")
+       use iso_c_binding, only: c_ptr
+       type(c_ptr), value :: sec
+     end subroutine xslt_set_default_security_prefs
+
      !! xsltInternals
      !! *************
      function xslt_parse_stylesheet_file(filename) result(stylesheet) &
@@ -38,5 +52,18 @@ module xslt
        integer(c_int), value :: compression
        integer(c_int) :: bytes
      end function xslt_save_result_to_filename
+
+     subroutine xslt_set_generic_debug_func(ctx, handler) &
+          bind(c, name="xsltSetGenericDebugFunc")
+       use iso_c_binding, only: c_ptr
+       type(c_ptr), value :: ctx, handler
+     end subroutine xslt_set_generic_debug_func
+
+     subroutine xslt_set_generic_error_func(ctx, handler) &
+          bind(c, name="xsltSetGenericErrorFunc")
+       use iso_c_binding, only: c_ptr
+       type(c_ptr), value :: ctx, handler
+     end subroutine xslt_set_generic_error_func
+
   end interface
 end module xslt
