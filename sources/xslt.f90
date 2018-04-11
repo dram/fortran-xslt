@@ -18,6 +18,17 @@ module xslt
        type(c_ptr) :: res
      end function xslt_apply_stylesheet
 
+     function xslt_run_stylesheet_user( &
+          style, doc, params, output, &
+          sax, io_buf, profile, user_ctxt) result(res) &
+          bind(c, name="xsltRunStylesheetUser")
+       use iso_c_binding, only: c_char, c_int, c_ptr
+       type(c_ptr), value :: style, doc, sax, io_buf, profile, user_ctxt
+       character(kind=c_char), intent(in) :: output (*)
+       type(c_ptr), intent(in) :: params (*)
+       integer(c_int) :: res
+     end function xslt_run_stylesheet_user
+
      !! security
      !! ********
      function xslt_new_security_prefs() result(res) &
