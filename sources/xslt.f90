@@ -15,18 +15,18 @@ module xslt
        use iso_c_binding, only: c_ptr
        type(c_ptr), value :: style, doc
        type(c_ptr), intent(in) :: params (*)
-       type(c_ptr) :: xslt_apply_stylesheet
+       type(c_ptr) xslt_apply_stylesheet
      end function xslt_apply_stylesheet
 
      function xslt_run_stylesheet_user( &
           style, doc, params, output, &
           sax, io_buf, profile, user_ctxt) &
           bind(c, name="xsltRunStylesheetUser")
-       use iso_c_binding, only: c_char, c_int, c_ptr
-       type(c_ptr), value :: style, doc, sax, io_buf, profile, user_ctxt
-       character(kind=c_char), intent(in) :: output (*)
+       use iso_c_binding, only: c_int, c_ptr
+       type(c_ptr), value :: &
+            style, doc, output, sax, io_buf, profile, user_ctxt
        type(c_ptr), intent(in) :: params (*)
-       integer(c_int) :: xslt_run_stylesheet_user
+       integer(c_int) xslt_run_stylesheet_user
      end function xslt_run_stylesheet_user
 
      !! security
@@ -34,7 +34,7 @@ module xslt
      function xslt_new_security_prefs() &
           bind(c, name="xsltNewSecurityPrefs")
        use iso_c_binding, only: c_ptr
-       type(c_ptr) :: xslt_new_security_prefs
+       type(c_ptr) xslt_new_security_prefs
      end function xslt_new_security_prefs
 
      subroutine xslt_set_default_security_prefs(sec) &
@@ -47,20 +47,19 @@ module xslt
      !! *************
      function xslt_parse_stylesheet_file(filename) &
           bind(c, name="xsltParseStylesheetFile")
-       use iso_c_binding, only: c_char, c_ptr
-       character(kind=c_char), intent(in) :: filename (*)
-       type(c_ptr) :: xslt_parse_stylesheet_file
+       use iso_c_binding, only: c_ptr
+       type(c_ptr), value :: filename
+       type(c_ptr) xslt_parse_stylesheet_file
      end function xslt_parse_stylesheet_file
 
      !! xsltutils
      !! *********
      function xslt_save_result_to_filename(url, result, style, compression) &
           bind(c, name="xsltSaveResultToFilename")
-       use iso_c_binding, only: c_char, c_int, c_ptr
-       character(kind=c_char), intent(in) :: url (*)
-       type(c_ptr), value :: result, style
+       use iso_c_binding, only: c_int, c_ptr
+       type(c_ptr), value :: url, result, style
        integer(c_int), value :: compression
-       integer(c_int) :: xslt_save_result_to_filename
+       integer(c_int) xslt_save_result_to_filename
      end function xslt_save_result_to_filename
 
      subroutine xslt_set_generic_debug_func(ctx, handler) &
