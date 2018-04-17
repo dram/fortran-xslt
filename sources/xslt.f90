@@ -13,8 +13,7 @@ module xslt
      function xslt_apply_stylesheet(style, doc, params) &
           bind(c, name="xsltApplyStylesheet")
        use iso_c_binding, only: c_ptr
-       type(c_ptr), value :: style, doc
-       type(c_ptr), intent(in) :: params (*)
+       type(c_ptr), value :: style, doc, params
        type(c_ptr) xslt_apply_stylesheet
      end function xslt_apply_stylesheet
 
@@ -24,8 +23,7 @@ module xslt
           bind(c, name="xsltRunStylesheetUser")
        use iso_c_binding, only: c_int, c_ptr
        type(c_ptr), value :: &
-            style, doc, output, sax, io_buf, profile, user_ctxt
-       type(c_ptr), intent(in) :: params (*)
+            style, doc, params, output, sax, io_buf, profile, user_ctxt
        integer(c_int) xslt_run_stylesheet_user
      end function xslt_run_stylesheet_user
 
